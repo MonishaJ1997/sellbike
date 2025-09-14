@@ -1,0 +1,259 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+
+<style>
+  .filter-sidebar {
+    background: #c3dfdf;
+    padding: 15px;
+    color: black;
+    height: 100%;
+  }
+  .filter-sidebar .accordion-button {
+    font-weight: 600;
+    background: #c3dfdf; 
+    color: black;
+  }
+  .filter-sidebar .accordion-body {
+    background: #c3dfdf; 
+    color: black;
+  }
+
+  .bike-card {
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    overflow: hidden;
+    min-height: 380px;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bike-card img {
+    width: 100%;
+    height: 240px;  /* bigger image */
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+  }
+</style>
+
+
+<div class="container-fluid p-4">
+  <div class="row">
+    
+    <!-- Left Filter Sidebar -->
+  
+    <!-- Left Filter Sidebar -->
+    <div class="col-md-3 ml filter-sidebar">
+      <h5 class="fw-bold">Filter</h5>
+      <div class="accordion" id="filterAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#budget" 
+              aria-expanded="false" aria-controls="budget">
+              Budget
+            </button>
+          </h2>
+          <div id="budget" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body">10,000 – 2,00,000</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#brand" 
+              aria-expanded="false" aria-controls="brand">
+              Brand
+            </button>
+          </h2>
+          <div id="brand" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body">Honda, Yamaha, Suzuki, Royal Enfield</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#year" 
+              aria-expanded="false" aria-controls="year">
+              Year
+            </button>
+          </h2>
+          <div id="year" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body">2010 - 2025</div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#year" 
+              aria-expanded="false" aria-controls="year">
+              Kilometers
+            </button>
+          </h2>
+          <div id="year" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#year" 
+              aria-expanded="false" aria-controls="year">
+              Engine Trim CC
+            </button>
+          </h2>
+          <div id="year" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <li>Below 100 CC</li>
+              <li>Below 200CC</li>
+              <li>Below 300 CC</li>
+              <li>Below 400 CC</li>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#year" 
+              aria-expanded="false" aria-controls="year">
+            Fuel Type
+            </button>
+          </h2>
+          <div id="year" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body"></div>
+          </div>
+        </div>
+
+
+
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#year" 
+              aria-expanded="false" aria-controls="year">
+              Color
+            </button>
+          </h2>
+          <div id="year" class="accordion-collapse collapse" 
+               data-bs-parent="#filterAccordion">
+            <div class="accordion-body">2010 - 2025</div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+    <!-- Bike Cards + Sort Section -->
+    <div class="col-md-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold">72 Bikes In Tamil Nadu</h5>
+        <form method="get">
+          <select name="sort" class="form-select" onchange="this.form.submit()">
+            <option value="newest" {% if request.GET.sort == "newest" %}selected{% endif %}>Newest First</option>
+            <option value="price_low" {% if request.GET.sort == "price_low" %}selected{% endif %}>Price - Low to High</option>
+            <option value="price_high" {% if request.GET.sort == "price_high" %}selected{% endif %}>Price - High to Low</option>
+            <option value="km_low" {% if request.GET.sort == "km_low" %}selected{% endif %}>KM Driven - Low to High</option>
+            <option value="km_high" {% if request.GET.sort == "km_high" %}selected{% endif %}>KM Driven - High to Low</option>
+            <option value="year_old" {% if request.GET.sort == "year_old" %}selected{% endif %}>Year - Old to New</option>
+            <option value="year_new" {% if request.GET.sort == "year_new" %}selected{% endif %}>Year - New to Old</option>
+          </select>
+        </form>
+      </div>
+
+      
+
+   
+    <div class="row g-2 justify-content-center" >
+      {% for card in cards %}
+      <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+        <a href="{% url 'buybike_detail' 1 %}" class="text-decoration-none w-100">
+
+          <div class="bike-card text-center bg-light">
+            <img src="{{ card.image.url }}" alt="{{ card.name }}">
+
+            <div class="p-2">
+              <p class="mt-2 fw-bold" style="color:#07435c">{{ card.year }} | {{ card.name }} | {{ card.engine_cc }}CC</p>
+              <p class="fw-bold" style="color: black;">⏱ {{ card.kilometers }} Km · {{ card.fuel_type }} · {{ card.owner }}</p>
+              <h5 class="text" style="color: black;">₹ {{ card.price|floatformat:0 }}</h5>
+             
+              <p style="color: black;"><i class="fa-solid fa-location-dot me-2 fw-bold" style="color: black;"></i>{{ card.location }}</p>
+            </div>
+            
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+    
+
+
+  </div>
+</div>
+
+
+    
+     
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  
+   
+
+    {% endblock %}

@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Hero section (first background) */
+.hero-section {
+  position: relative;
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+.hero-overlay {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  pointer-events: auto;
+}
+.hero-overlay h2 {
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+/* Second section (cards) */
+.bg-img {
+  position: relative;
+  width: 100%;
+  height: 780px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+.bg-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cards-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.header-row, .cards-pill, .bottom-caption {
+  pointer-events: auto;
+}
+
+/* Title + subtitle */
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+.subtitle {
+  margin-top: 8px;
+  color: #fff;
+  font-size: 20px;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.5);
+}
+
+/* Cards pill */
+.cards-pill {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 28px;
+  padding: 12px 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.card-item {
+  padding: 14px 28px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  pointer-events: auto;
+}
+.card-divider {
+  width: 1px;
+  height: 42px;
+  background: #bfbfbf;
+  margin: 0 6px;
+}
+.get-price-btn {
+  margin-left: 18px;
+  background: #e6e6e6;
+  border-radius: 18px;
+  padding: 14px 28px;
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+}
+
+
+.panel {
+  position: absolute;
+  left: 30px;
+  top: 340px;
+  width: 320px;
+  background: #fff;
+  color: #111;
+  border-radius: 14px;
+  padding: 20px;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border: 5px solid #0c5d66;
+  display: none; /* JS will set to block */
+}
+
+.panel .search {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+.panel h6 {
+  color: #0b4b53;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 360px;
+  overflow: auto;
+}
+.panel ul li {
+  padding: 10px 2px;
+  font-weight: 700;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+.panel ul li:hover {
+  background: #f7f9fa;
+}
+
+/* Bottom caption */
+.bottom-caption {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+
+/* Mobile (max-width: 767px) */
+@media (max-width: 767px) {
+  .hero-section {
+    height: auto;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0;
+  }
+
+  .hero-overlay {
+    max-width: 100%;
+    padding: 16px 20px;
+  }
+
+  .hero-overlay h2 {
+    font-size: 22px;
+  }
+
+  .bg-img {
+    height: auto;
+  }
+
+  .cards-overlay {
+    padding: 20px 10px;
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .cards-pill {
+    flex-direction: column;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .card-item {
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .card-divider {
+    display: none;
+  }
+
+  .get-price-btn {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .panel {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    top: auto;
+    left: auto;
+    margin-top: 20px;
+    padding: 16px;
+  }
+
+  .panel .search {
+    font-size: 14px;
+  }
+
+  .panel ul li {
+    font-size: 14px;
+  }
+
+  .bottom-caption {
+    margin-top: 20px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Tablets (min-width: 768px and max-width: 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-section {
+    padding-left: 30px;
+    height: 60vh;
+  }
+
+  .hero-overlay {
+    max-width: 90%;
+    padding: 18px 24px;
+  }
+
+  .hero-overlay h2 {
+    font-size: 24px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .cards-pill {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 14px;
+  }
+
+  .card-item {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+
+  .get-price-btn {
+    margin-left: 12px;
+    padding: 12px 20px;
+  }
+
+  .panel {
+    width: 90%;
+    left: 5%;
+    top: auto;
+    margin-top: 20px;
+  }
+
+  .bottom-caption {
+    margin-top: 24px;
+    font-size: 15px;
+  }
+}
+/* Base: Ensure images are responsive */
+.how-it-works img {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Step container spacing */
+.how-it-works-step {
+  margin: 0 12px;
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+/* Ensure image responsiveness */
+.how-it-works-img {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Step container spacing */
+.how-it-works-step {
+  max-width: 250px;
+  flex: 0 0 auto;
+}
+
+/* Arrow styling */
+.how-it-works-arrow span {
+  color: black;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .how-it-works-steps {
+    flex-direction: column;
+  }
+
+  .how-it-works-step {
+    margin-bottom: 20px;
+  }
+
+  .how-it-works-arrow {
+    display: none !important; /* Hide arrows on mobile */
+  }
+
+  .how-it-works-img {
+    max-width: 100%;
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .how-it-works-step {
+    margin: 15px;
+  }
+
+  .how-it-works-arrow span {
+    font-size: 2.5rem;
+  }
+}
+
+
+</style>
+
+
+
+
+<!-- First background hero section -->
+<div class="hero-section mt-4" style="background-image: url('{{ fast_rider.fast_rider_image.url }}');">
+  <div class="hero-overlay">
+    <h2>"{{ fast_rider.quote }}"</h2>
+  </div>
+</div>
+
+<!-- Second background image section with cards -->
+<div class="container py-4">
+  <div class="bg-img mx-auto">
+    {% if section and section.background %}
+      <img src="{{ section.background.url }}" alt="background">
+    {% else %}
+      <img src="{% static 'images/fallback.jpg' %}" alt="background">
+    {% endif %}
+
+    <div class="cards-overlay">
+      <!-- Top title + logo -->
+      <div class="header-row">
+        <div class="title">{{ section.title }}</div>
+        {% if section.logo %}
+         
+        {% endif %}
+      </div>
+
+      <!-- Subtitle -->
+      <div class="subtitle">{{ section.subtitle }}</div>
+
+      <!-- Cards pill -->
+      <div class="cards-pill mt-3">
+        {% for c in section.cards.all %}
+          <div class="card-item" data-id="{{ c.id }}">{{ c.name }}</div>
+        {% endfor %}
+        <div class="get-price-btn">Get Price</div>
+      </div>
+      
+      <!-- Floating panel -->
+      <div id="card-panel" class="panel" aria-hidden="true">
+        <input id="panel-search" class="search" placeholder="Enter Your Bike brand" />
+        <h6>Other Brands</h6>
+        <ul id="panel-list"></ul>
+      </div>
+      
+
+      <!-- Bottom caption -->
+      <div class="bottom-caption mt-4">
+        Can’t find what You’re Looking For ? 
+        <a href="{% url 'contact' %}" class="fw-bold">Click Here</a>
+        
+      </div>
+    </div>
+
+    <!-- Floating panel -->
+    <div id="card-panel" class="panel" aria-hidden="true">
+      <input id="panel-search" class="search" placeholder="Enter Your Bike brand" />
+      <h6>Other Brands</h6>
+      <ul id="panel-list"></ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- How it Works -
+<div class="container text-center my-5">
+  <h2 class="fw-bold mb-5 how_it_works">How it Works</h2>
+  <div class="d-flex justify-content-center align-items-center flex-nowrap">
+    {% for step in steps %}
+      <div class="text-center mx-3">
+        <img src="{{ step.image.url }}" class="img-fluid mb-3" style="max-width:250px; height:auto; border-radius:10px;">
+        <h4 class="fw-bold">{{ step.title }}</h4>
+        {% if step.description %}
+          <p>{{ step.description }}</p>
+        {% endif %}
+      </div>
+
+      {% if not forloop.last %}
+        <div class="mx-3" style="font-size:4rem; font-weight:bold; color:black;">&#60;</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+-->
+
+
+<div class="container text-center my-5 how-it-works-container">
+  <h2 class="fw-bold mb-5 how_it_works">How it Works</h2>
+
+  <div class="d-flex flex-wrap justify-content-center align-items-center how-it-works-steps">
+    {% for step in steps %}
+      <div class="how-it-works-step text-center mx-3 my-3">
+        <img src="{{ step.image.url }}" class="img-fluid mb-3 how-it-works-img" alt="{{ step.title }}">
+        <h4 class="fw-bold">{{ step.title }}</h4>
+        {% if step.description %}
+          <p>{{ step.description }}</p>
+        {% endif %}
+      </div>
+
+      {% if not forloop.last %}
+        <div class="how-it-works-arrow mx-3 d-none d-md-block">
+          <span style="font-size: 3rem; font-weight: bold;">&#60;</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+    const CARDS = {{ cards_json|safe }};
+  
+    function findCardById(id) {
+      return CARDS.find(c => c.id == id);
+    }
+  
+    const panel = document.getElementById('card-panel');
+    const panelList = document.getElementById('panel-list');
+    const panelSearch = document.getElementById('panel-search');
+  
+    document.querySelectorAll('.card-item').forEach(el => {
+      el.addEventListener('click', function(e){
+        const cardId = this.dataset.id;
+        const card = findCardById(cardId);
+        if (!card) return;
+  
+        // render options
+        renderOptions(card.options);
+  
+        // show panel
+        panel.style.display = 'block';
+        panel.setAttribute('aria-hidden','false');
+  
+        e.stopPropagation();
+      });
+    });
+  
+    function renderOptions(options) {
+      panelList.innerHTML = '';
+      if (!options || options.length === 0) {
+        panelList.innerHTML = '<li class="text-muted">No items</li>';
+        return;
+      }
+      options.forEach(opt => {
+        const li = document.createElement('li');
+        li.textContent = opt.name;
+        li.addEventListener('click', () => {
+          alert("Clicked " + opt.name); 
+          // window.location.href = "/sell/results/?card=" + opt.id + "&name=" + opt.name;
+        });
+        panelList.appendChild(li);
+      });
+    }
+  
+    panelSearch.addEventListener('input', function(){
+      const q = this.value.trim().toLowerCase();
+      panelList.querySelectorAll('li').forEach(li => {
+        li.style.display = li.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  
+    // close when clicking outside
+    document.addEventListener('click', function(e){
+      if (!panel.contains(e.target)) {
+        panel.style.display = 'none';
+        panel.setAttribute('aria-hidden','true');
+      }
+    });
+    panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  </script>
+  
+
+
+
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<style>
+    /*
+    .login-container {
+        display: flex;
+        height: 100vh;
+    }
+    .login-left {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8f8f8;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        overflow: hidden;
+    }
+    .login-left img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        border: 20px solid #07435c;
+    }
+    .login-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-box {
+        width: 80%;
+        max-width: 400px;
+    }
+    .form-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #004466;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: #07435c;
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 20px;
+        border: none;
+        background-color: #07435c;
+        color: white;
+        font-size: 16px;
+    }
+    input::placeholder {
+        color: #cce0e0;
+    }
+    .forgot {
+        text-align: right;
+        margin: 10px 0;
+    }
+    .forgot a {
+        color: #004466;
+        font-size: 14px;
+        text-decoration: none;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 20px;
+        border: none;
+        background-color: #07435c;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #006680;
+    }
+
+*/
+/* Base styles */
+.login-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+}
+
+.login-left,
+.login-right {
+  flex: 1;
+}
+
+.login-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f8f8;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+
+.login-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 20px solid #07435c;
+  border-radius: 20px;
+}
+
+.login-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.form-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #004466;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #07435c;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background-color: #07435c;
+  color: white;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #cce0e0;
+}
+
+.forgot {
+  text-align: right;
+  margin: 10px 0;
+}
+
+.forgot a {
+  color: #004466;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background-color: #07435c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #006680;
+}
+
+/* Mobile & Tablet: Stack layout */
+@media (max-width: 1023px) {
+  .login-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .login-left {
+    order: 1;
+    height: 250px;
+    border-radius: 0;
+    border: none;
+  }
+
+  .login-left img {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .login-right {
+    order: 2;
+    padding: 30px 20px;
+  }
+
+  .form-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  input,
+  button {
+    font-size: 16px;
+  }
+}
+
+
+
+</style>
+
+
+
+
+<div class="login-container mt-4 mb-5">
+    <div class="login-left">
+        <img src="{{ login_image.image.url }}" alt="{{ login_image.title }}"> 
+    </div>
+    <div class="login-right">
+      <div class="form-box">
+        <h2>Login</h2>
+        <form>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+          </div>
+          <div class="forgot">
+            <a href="#">Forgot password?</a>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+{% endblock %}

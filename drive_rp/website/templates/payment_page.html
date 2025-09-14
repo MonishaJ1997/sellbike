@@ -1,0 +1,374 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    
+
+.payment-section, .summary-section {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.payment-section {
+    width: 60%;
+    float: left;
+    box-sizing: border-box;
+    margin-right: 20px;
+    border: 1px solid black;
+}
+
+.payment-section h2 {
+    text-align: center;
+    color: #144055;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 12px 0;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.payment-option .left {
+    display: flex;
+    align-items: center;
+}
+
+.payment-option img {
+    margin-right: 15px;
+}
+
+.payment-option label {
+    font-size: 18px;
+    color: #144055;
+}
+
+.payment-option input[type="radio"] {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #144055;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.payment-option input[type="radio"]:checked::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background-color: #144055;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+.summary-section {
+    width: 35%;
+    float: left;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px 25px;
+    height: fit-content;
+}
+
+.summary-section p {
+    font-size: 18px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between; /* left label, right value */
+    align-items: center;
+    gap: 10px; /* optional space between label and value */
+    color: #144055;
+}
+
+
+.confirm-btn {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #144055;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.confirm-btn:hover {
+    background-color: #0f3245;
+}
+
+
+.payment-wrapper::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+/* Mobile Devices (≤767px) */
+@media (max-width: 767px) {
+    .payment-section,
+    .summary-section {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .payment-section {
+        padding: 20px;
+    }
+
+    .summary-section {
+        padding: 20px;
+    }
+
+    .payment-option label {
+        font-size: 16px;
+    }
+
+    .summary-section p {
+        font-size: 16px;
+    }
+
+    .confirm-btn {
+        font-size: 14px;
+    }
+}
+
+/* Tablets (>767px and <1024px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .payment-section,
+    .summary-section {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .payment-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .payment-section {
+        padding: 30px;
+    }
+
+    .summary-section {
+        padding: 25px;
+    }
+
+    .payment-option label {
+        font-size: 17px;
+    }
+
+    .summary-section p {
+        font-size: 17px;
+    }
+
+    .confirm-btn {
+        font-size: 15px;
+    }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: block; /* no flex needed */
+  z-index: 9999;
+}
+
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  border:10px solid #07435c;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+.btn {
+  background-color: #07435c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #036b8f;
+}
+
+.close-btn {
+  margin-top: 20px;
+  background: #c0392b;
+}
+.hidden {
+  display: none !important;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -45%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Small screens responsive tweaks */
+@media (max-width: 500px) {
+  .overlay-content {
+    width: 95%;
+    padding: 20px 15px;
+  }
+
+  .confirm-img {
+    width: 120px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+</style>
+
+
+
+
+<div class="payment-wrapper">
+    
+
+
+    <div class="payment-section">
+        <h2>Select Payment Method</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+<!----
+            {% for method in payment_methods %}
+            <div class="payment-option">
+                <div class="left">
+                    {% if method.icon %}
+                    <img src="{{ method.icon.url }}" alt="{{ method.name }}" width="40">
+                       
+                    {% endif %}
+                    <label>{{ method.name }}</label>
+                </div>
+                <input type="radio" name="payment_method" value="{{ method.name }}" {% if forloop.first %}checked{% endif %}>
+            </div>
+        {% endfor %}-->
+        
+
+        {% for method in payment_methods %}
+        <div class="payment-option">
+            <div class="left">
+                {% if method.icon %}
+                    <img src="{{ method.icon.url }}" alt="{{ method.name }}" width="40">
+                {% endif %}
+                <label>{{ method.name }}</label>
+            </div>
+            <input type="radio" name="payment_method" value="{{ method.name }}" {% if forloop.first %}checked{% endif %}>
+        </div>
+        {% endfor %}
+        
+
+        
+
+
+
+
+
+        </form>
+    </div>
+
+  <div class="summary-section mt-6">
+   
+
+    <p><span>SubTotal:</span> <span>Rs.{{ subtotal }}</span></p>
+    <p><span>GST Tax:</span> <span>Rs.{{ gst_tax }}</span></p>
+    <p><span>Test Drive:</span> <span>Rs.{{ test_drive }}</span></p>
+    <p class="fw-bold"><span>Grand Total:</span> <span>Rs.{{ grand_total }}</span></p>
+    <button class="confirm-btn" id="paymentBtn" onclick="showBookingOverlay()" style="margin-top: 250px;">Confirm Payment</button>
+
+
+
+
+</div>
+
+
+<!-- Overlay (hidden initially) -->
+<div id="bookingOverlay" class="overlay hidden">
+    <div class="overlay-content">
+      <img src="{{ confirmation.image.url }}" alt="Confirmed" class="confirm-img">
+      <h2 style="color: #07435c">{{ confirmation.message_title }}</h2>
+      <p style="color: #07435c">{{ confirmation.message_text }}</p>
+      <button id="closeOverlay" class="btn close-btn">Close</button>
+    </div>
+  </div>
+  
+ 
+  <script>
+    const paymentBtn = document.getElementById('paymentBtn');
+    const overlay = document.getElementById('bookingOverlay');
+    const closeBtn = document.getElementById('closeOverlay');
+    
+    // Show overlay when Buy/Payment button is clicked
+    if (paymentBtn) {
+      paymentBtn.addEventListener('click', () => {
+        overlay.classList.remove('hidden');
+      });
+    }
+    
+    // Close overlay when "Close" button is clicked
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.add('hidden');
+    });
+    
+    // Close overlay if user clicks outside the content box
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.add('hidden');
+      }
+    });
+    </script>
+  
+
+
+
+
+
+    {% endblock %}
