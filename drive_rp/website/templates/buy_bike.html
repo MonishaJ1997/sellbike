@@ -10,18 +10,18 @@
 
 <style>
   .filter-sidebar {
-    background: #c3dfdf;
+    background: #d9eaf7;
     padding: 15px;
     color: black;
     height: 100%;
   }
   .filter-sidebar .accordion-button {
     font-weight: 600;
-    background: #c3dfdf; 
+    background: #d9eaf7; 
     color: black;
   }
   .filter-sidebar .accordion-body {
-    background: #c3dfdf; 
+    background: #d9eaf7; 
     color: black;
   }
 
@@ -35,6 +35,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 420px;
+
   }
 
   .bike-card img {
@@ -190,6 +192,10 @@
     <div class="col-md-9">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold">72 Bikes In Tamil Nadu</h5>
+
+
+
+        <!----
         <form method="get">
           <select name="sort" class="form-select" onchange="this.form.submit()">
             <option value="newest" {% if request.GET.sort == "newest" %}selected{% endif %}>Newest First</option>
@@ -201,9 +207,30 @@
             <option value="year_new" {% if request.GET.sort == "year_new" %}selected{% endif %}>Year - New to Old</option>
           </select>
         </form>
+      </div>-->
+
+     
+      
+<form method="GET">
+  <div style="display: flex; align-items: center; gap: 10px; white-space: nowrap;">
+    <span style="font-weight: bold;">Sort By</span>
+    <select name="sort" class="form-select" onchange="this.form.submit()" style="min-width: 200px;">
+      <option value="newest" {% if request.GET.sort == "newest" %}selected{% endif %}>Newest First</option>
+      <option value="price_low" {% if request.GET.sort == "price_low" %}selected{% endif %}>Price - Low to High</option>
+      <option value="price_high" {% if request.GET.sort == "price_high" %}selected{% endif %}>Price - High to Low</option>
+      <option value="km_low" {% if request.GET.sort == "km_low" %}selected{% endif %}>KM Driven - Low to High</option>
+      <option value="km_high" {% if request.GET.sort == "km_high" %}selected{% endif %}>KM Driven - High to Low</option>
+      <option value="year_old" {% if request.GET.sort == "year_old" %}selected{% endif %}>Year - Old to New</option>
+      <option value="year_new" {% if request.GET.sort == "year_new" %}selected{% endif %}>Year - New to Old</option>
+    </select>
+  </div>
+</form>
       </div>
 
-      
+
+
+
+
 
    
     <div class="row g-2 justify-content-center" >
@@ -214,7 +241,7 @@
           <div class="bike-card text-center bg-light">
             <img src="{{ card.image.url }}" alt="{{ card.name }}">
 
-            <div class="p-2">
+            <div class="p-2" style="background-color: #c3dfdf;">
               <p class="mt-2 fw-bold" style="color:#07435c">{{ card.year }} | {{ card.name }} | {{ card.engine_cc }}CC</p>
               <p class="fw-bold" style="color: black;">⏱ {{ card.kilometers }} Km · {{ card.fuel_type }} · {{ card.owner }}</p>
               <h5 class="text" style="color: black;">₹ {{ card.price|floatformat:0 }}</h5>
