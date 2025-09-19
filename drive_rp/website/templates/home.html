@@ -1,4 +1,5 @@
-{% extends "base.html" %}
+
+  {% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -131,73 +132,76 @@
         font-weight: 500;
         
     }
+/*
+.features-section {
+  padding: 50px 20px;
+}
 
-  
-    .feature-box {
-      text-align: center;
-      padding: 20px;
-    }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; 
+  max-width: 100%; 
+ 
+}
 
-    .arrow-circle {
-      position: relative;
-      display: inline-block;
-      width: 180px;
-      height: 180px;
-      border: 10px solid #007bff;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
+.feature-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .arrow-circle img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
 
-    .arrow-line {
-      width: 10px;
-      background-color: #007bff;
-      margin: auto;
-    }
 
-    .arrow-line.down {
-      height: 80px;
-    }
+.feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}*/
 
-    .arrow-line.up {
-      height: 80px;
-    }
 
-    .arrow-head {
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      margin: auto;
-    }
 
-    .arrow-head.down {
-      border-top: 30px solid #007bff;
-    }
+.features-section {
+  padding: 40px 20px;
+}
 
-    .arrow-head.up {
-      border-bottom: 30px solid #007bff;
-    }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px; /* optional: max container width */
+  margin: 0 auto;
+}
 
-    @media (max-width: 768px) {
-      .arrow-circle {
-        width: 150px;
-        height: 150px;
-      }
-      .arrow-circle img {
-        width: 80px;
-        height: 80px;
-      }
-    }
+.feature-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  /* same size */
+  width: 100%;
+  height: 450px;   /* fix equal height */
+}
+
+.feature-img {
+  width: 250px;
+  height: 500px;
+  margin-bottom: 20px;
+}
+
+.feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* keeps proportions */
+}
+
+
 .bike-container {
     display: flex;
     justify-content: center;
@@ -247,7 +251,7 @@
   }
   
     .stats-container {
-  background: #0a7063;
+  background: #1e766b;
   color: #fff;
   padding: 30px;
   border-radius: 20px;
@@ -508,8 +512,7 @@
     flex-direction: column;
     align-items: center;   
     justify-content: center;
-    margin:0 auto;
-
+   
   }
 
   .testimonial-container {
@@ -536,7 +539,18 @@
   .stats-row {
     flex-direction: column;
   }
+
+  
+  .bike-container .row {
+    justify-content: center !important;
+  }
+  .bike-card {
+    max-width: 90%; /* keep cards narrower */
+    margin: 0 auto;
+  }
 }
+
+
 
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -650,6 +664,24 @@
 
 
 
+<h2 class="text-center my-4">Get the support you needs</h2>
+<div class="features-section">
+  <div class="features-grid">
+    {% for f in features %}
+      <div class="feature-card">
+        <div class="feature-img">
+          <img src="{{ f.image.url }}" alt="{{ f.title }}">
+        </div>
+        
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
 
 <h2 class="text-center my-4">Our Few Bikes</h2>
 
@@ -662,7 +694,7 @@
 
         <div class="bike-details">
             <h3>{{ bike.year }} | {{ bike.title }} | {{ bike.engine_cc }}</h3>
-            <p>⚙️ {{ bike.km_driven }} Km . {{ bike.fuel_type }} . {{ bike.owner }}</p>
+            <p>⏱{{ bike.km_driven }} Km . {{ bike.fuel_type }} . {{ bike.owner }}</p>
             <h2>₹ {{ bike.price|floatformat:0 }}</h2>
             <p><i class="fa-solid fa-location-dot me-2"></i> {{ bike.location }}</p>
         </div>
@@ -671,7 +703,6 @@
     {% endfor %}
   </div>
 </div>
-
 
 
 
@@ -833,3 +864,5 @@
 
 {% endblock %}
 
+
+    
