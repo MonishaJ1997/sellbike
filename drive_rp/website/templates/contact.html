@@ -73,7 +73,8 @@ h2 {
 
 .contact-info {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .contact-info p {
@@ -187,9 +188,12 @@ h2 {
             <img src="{{ map_info.map_image.url }}" alt="Map" class="map-img">
             <div class="contact-info">
                 <p><b>Address:</b><br>{{ map_info.address }}</p>
+                <p>GST Road,<br>Chengalpattu-603104</p>
+                <p>Tamilnadu,India</p>
                 {% if map_info.website %}
                     <p><b>🌐</b> {{ map_info.website }}</p>
                 {% endif %}
+                
                 {% if map_info.phone %}
                     <p><b>📞</b> {{ map_info.phone }}</p>
                 {% endif %}
