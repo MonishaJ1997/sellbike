@@ -4,7 +4,10 @@
 {% block content %}
 
 <style>
-    /* Hero section (first background) */
+
+
+
+/* Hero Section */
 .hero-section {
   position: relative;
   height: 70vh;
@@ -14,21 +17,59 @@
   align-items: center;
   padding-left: 50px;
   border-radius: 20px;
+  overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
+
+/* Glass effect box */
 .hero-overlay {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 20px 30px;
-  border-radius: 10px;
-  max-width: 400px;
-  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.1);   /* light transparency */
+  border-radius: 15px;
+  padding: 30px 40px;
+  backdrop-filter: blur(10px);            /* Frosted glass blur */
+  -webkit-backdrop-filter: blur(10px);    /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 500px;
+  text-align: center;
 }
+
+/* Text style with shadow */
 .hero-overlay h2 {
-  color: #000;
-  font-size: 28px;
+  color: black;
+  font-size: 30px;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 1.6;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6); 
+  text-shadow: 
+     2px 2px 4px rgba(0,0,0,0.8),   /* Black shadow */
+    3px 3px 6px rgba(0, 123, 255, 0.8);
 }
+
+
+.header-row {
+  display: flex;
+       /* vertically center */
+  justify-content: space-between; /* space between title and logo */
+  gap: 2px;   
+  margin-top: -360px;             /* small spacing */
+}
+
+.header-row .title {
+  font-size: 32px;
+  font-weight: bold;
+  color:black;
+  width: 300px;
+  
+}
+
+.header-row .logo {
+  max-height: 50px;   /* adjust logo size */
+  object-fit: contain;
+}
+
+
+
+
 
 /* Second section (cards) */
 .bg-img {
@@ -51,8 +92,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+   justify-content: flex-start; /* 👈 from top, not center */
+  padding-top: 400px;
   pointer-events: none;
+
 }
 .header-row, .cards-pill, .bottom-caption {
   pointer-events: auto;
@@ -66,7 +109,7 @@
   text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 .subtitle {
-  margin-top: 8px;
+  margin-top: 200px;
   color: #fff;
   font-size: 20px;
   text-shadow: 0 4px 18px rgba(0,0,0,0.5);
@@ -85,6 +128,13 @@
   padding: 12px 18px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
+.card-divider {
+  width: 5px;
+  height: 50px;         /* 👈 fixed height */
+  background: #bfbfbf;  /* gray line */
+  margin: 0 12px;       /* spacing left + right */
+}
+
 .card-item {
   padding: 14px 28px;
   font-weight: 600;
@@ -390,14 +440,39 @@
       <img src="{% static 'images/fallback.jpg' %}" alt="background">
     {% endif %}
 
+
+
+
+
+
+
+<div class="cards-overlay">
+  <!-- Top title + logo -->
+  <div class="header-row">
+    <div class="title">{{ section.title }}</div>
+    {% if section.logo %}
+      <img src="{{ section.logo.url }}" alt="logo" class="logo">
+    {% endif %}
+  </div>
+
+
+
+
+
+
+
+
+
+
+<!---
     <div class="cards-overlay">
-      <!-- Top title + logo -->
+      <!-- Top title + logo --
       <div class="header-row">
         <div class="title">{{ section.title }}</div>
         {% if section.logo %}
          
         {% endif %}
-      </div>
+      </div>-->
 
       <!-- Subtitle -->
       <div class="subtitle">{{ section.subtitle }}</div>
@@ -405,8 +480,14 @@
       <!-- Cards pill -->
       <div class="cards-pill mt-3">
         {% for c in section.cards.all %}
-          <div class="card-item" data-id="{{ c.id }}">{{ c.name }}</div>
-        {% endfor %}
+          <div class="card-item" data-id="{{ c.id }}">{{ c.name }} </div>
+        
+        {% if not forloop.last %}
+      <div class="card-divider"></div> <!-- Divider only between items -->
+    {% endif %}
+        
+        
+          {% endfor %}
         <div class="get-price-btn">Get Price</div>
       </div>
       
@@ -419,7 +500,7 @@
       
 
       <!-- Bottom caption -->
-      <div class="bottom-caption mt-4">
+      <div class="bottom-caption" style="margin-top: 200px;">
         Can’t find what You’re Looking For ? 
         <a href="{% url 'contact' %}" class="fw-bold">Click Here</a>
         
